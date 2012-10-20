@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://www.romaframework.org/xml/roma" xmlns:xsd="http://www.w3.org/2001/XMLSchema-instance"
+	xsd:schemaLocation="http://www.romaframework.org/xml/roma http://www.romaframework.org/schema/v3/roma.xsd">
+	<aspects>
+		<view>
+			<form>
+				<area name="main" type="column">
+					<area name="availableFilters" />
+					<area name="filterRow" type="column" size="3">
+						<area name="filters" type="placeholder" />
+						<area name="operation" type="form" size="5" />
+						<area name="itemActions" type="column" />
+					</area>
+					<area name="editCondition" type="form" size="2" />
+				</area>
+			</form>
+		</view>
+	</aspects>
+</class>

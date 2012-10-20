@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://www.romaframework.org/xml/roma" xmlns:xsd="http://www.w3.org/2001/XMLSchema-instance"
+	xsd:schemaLocation="http://www.romaframework.org/xml/roma http://www.romaframework.org/schema/roma.xsd">
+
+	<aspects>
+		<view>
+			<form>
+				<area name="main" type="column">
+					<area name="up" type="row">
+						<area name="back" type="column" />
+						<area name="images" type="column" />
+						<area name="next" type="column" />
+					</area>
+
+					<area name="selected" type="row" />
+				</area>
+			</form>
+		</view>
+	</aspects>
+
+</class>

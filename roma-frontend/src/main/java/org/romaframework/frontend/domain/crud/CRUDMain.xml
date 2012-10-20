@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://www.romaframework.org/xml/roma" xmlns:xsd="http://www.w3.org/2001/XMLSchema-instance"
+ xsd:schemaLocation="http://www.romaframework.org/xml/roma http://www.romaframework.org/schema/v3/roma.xsd">
+    <aspects>
+        <view>
+            <form>
+                <area type="grid" size="1">
+                    <area name="topPanel" type="grid" size="2" align="top">
+                        <area name="filter"/>
+                    </area>
+                    <area name="search" align="top left"/>
+                    <area name="centerPanel" type="grid" size="2" align="top">
+                        <area name="centerPanelLeft" type="grid" size="1" align="top">
+                            <area name="result" align="top"/>
+                            <area name="centerPanelBottom" type="grid" size="2" align="bottom">
+                                <area name="bottomPanelActions" type="row" align="center left">
+                                    <area name="selectAll" align="center left"/>
+                                    <area name="deselectAll" align="center left"/>
+                                </area>
+                                <area name="paging" align="center right"/>
+                            </area>
+                        </area>
+                        <area name="actions" type="column" align="top"/>
+                    </area>
+                </area>
+            </form>
+        </view>
+    </aspects>
+</class>
