@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jdo PUBLIC "-//Sun Microsystems, Inc.//DTD Java Data Objects Metadata 2.0//EN" "jdo.dtd">
+<jdo>
+	<package name="org.romaframework.module.users.domain">
+
+		<class name="BaseAccountStatus" detachable="true">
+			<field name="name" />
+		</class>
+
+		<class name="AbstractAccount" detachable="true">
+			<inheritance strategy="new-table"></inheritance>
+			<field name="name" indexed="true">
+				<column length="64" />
+			</field>
+			<unique>
+				<field name="name" />
+			</unique>
+		</class>
+
+		<class name="BaseAccount" detachable="true" persistence-capable-superclass="AbstractAccount">
+			<inheritance strategy="new-table"></inheritance>
+			<field name="status"  />
+			<field name="profile"  />
+			<field name="password" default-fetch-group="false">
+				<column length="255" />
+			</field>
+			<field name="changePasswordNextLogin" default-fetch-group="false">
+				<column default-value="0" />
+			</field>
+			<field name="groups">
+				<collection element-type="BaseGroup" />
+				<join />
+			</field>
+			<field name="oldPasswords">
+				<collection element-type="String" />
+				<join />
+			</field>
+		</class>
+
+		<class name="BaseProfile" detachable="true">
+			<field name="name">
+				<column length="64" />
+			</field>
+			<field name="parent"  recursion-depth="-1">
+				<foreign-key name="BASE_PROFILE_PARENT"></foreign-key>
+			</field>
+			<field name="functions" >
+				<map key-type="java.lang.String" value-type="BaseFunction" dependent-value="true" />
+				<key mapped-by="name" />
+			</field>
+			<unique>
+				<field name="name" />
+			</unique>
+		</class>
+
+		<class name="BaseGroup" detachable="true" persistence-capable-superclass="AbstractAccount">
+			<inheritance strategy="new-table"></inheritance>
+		</class>
+
+		<class name="BaseFunction" detachable="true">
+			<field name="name">
+				<column length="255" />
+			</field>
+		</class>
+
+		<class name="Tracking" detachable="true">
+			<field name="notes">
+				<column length="2000" />
+			</field>
+			<field name="account"  />
+		</class>
+
+		<class name="ActivityLogCategory" detachable="true">
+			<field name="name" />
+		</class>
+
+		<class name="ActivityLog" detachable="true" persistence-capable-superclass="Tracking">
+			<inheritance strategy="new-table" />
+			<field name="category"  />
+		</class>
+
+		<class name="CustomProfiling" detachable="true">
+			<field  name="account" null-value="none" primary-key="false"></field>
+			<field  name="functions" persistence-modifier="persistent" primary-key="false">
+				<map key-type="java.lang.String" value-type="CustomFunction" dependent-value="true" />
+				<key mapped-by="name">
+				</key>
+			</field>
+		</class>
+		<class name="CustomFunction" detachable="true">
+			<field name="name"  />
+			<field name="allow"  />
+		</class>
+
+	</package>
+
+	<package name="org.romaframework.module.users.domain.portal">
+		<class name="PortletList" detachable="true">
+			<field name="portlets" >
+				<collection dependent-element="true" />
+			</field>
+		</class>
+
+		<class name="PortalPreferences" detachable="true">
+			<field name="account"  field-type="org.romaframework.module.users.domain.BaseAccount" />
+			<field name="portletsInfos" >
+				<map key-type="java.lang.String" value-type="PortletList" dependent-value="true" />
+				<join />
+			</field>
+		</class>
+	</package>
+</jdo>

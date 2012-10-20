@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings>
+	<mapping>
+		<property name="profile" ignore="true" />
+		<property name="password" ignore="true" />
+		<property name="groups" ignore="true" />
+	</mapping>
+</mappings>

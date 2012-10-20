@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir="." default="add-module" name="roma-domain-users-wizard">
+
+	<import file="${wizard.path}/base-wizard.xml" />
+
+	<target name="add-module">
+		<property name="module.ioc-file" value="applicationContext-users.xml" />
+		<antcall target="copy-module-ioc-file" />
+
+		<echo>Adding new 'Authorization' beans in applicationContext-core.xml -></echo>
+		<xmltask source="${project.path}/${project.ioc-path}/applicationContext-core.xml" dest="${project.path}/${project.ioc-path}/applicationContext-core.xml" preservetype="true" expandEntityReferences="false">
+			<remove path="/beans/bean[@id='AuthenticationAspect']" />
+			<insert path="/beans/bean[last()]" position="after">
+				<![CDATA[<bean id="AuthenticationAspect" class="org.romaframework.module.users.UsersAuthentication" singleton="true" >
+				<property name="singleSessionPerUser" value="false"/>
+			</bean>
+				]]>
+			</insert>
+	</xmltask>
+
+	<echo>Adding new UsersModule's 'Installer' beans in applicationContext.xml -></echo>
+	<xmltask source="${project.path}/${project.ioc-path}/applicationContext.xml" dest="${project.path}/${project.ioc-path}/applicationContext.xml" preservetype="true" expandEntityReferences="false">
+		<remove path="/beans/bean[@id='ApplicationInstaller']" />
+		<insert path="/beans/bean[last()]" position="after">
+			<![CDATA[<bean id="ApplicationInstaller" class="org.romaframework.module.users.install.UsersApplicationInstaller" singleton="true" depends-on="UsersModule" />]]>
+			</insert>
+	</xmltask>
+
+	<!--
+		<echo>Adding descriptor for persistent classes: module-users.jdo -></echo>
+		<xmltask source="${project.path}/${project.src}/META-INF/persistence.xml" dest="${project.path}/${project.src}/META-INF/persistence.xml" preservetype="true" expandEntityReferences="false">
+			<insert path="/*[local-name()='persistence' and namespace-uri()='http://java.sun.com/xml/ns/persistence']/*[local-name()='persistence-unit' and namespace-uri()='http://java.sun.com/xml/ns/persistence']/*[local-name()='mapping-file' and namespace-uri()='http://java.sun.com/xml/ns/persistence'][last()]" position="after">
+				<![CDATA[<mapping-file xmlns="http://java.sun.com/xml/ns/persistence">${project.package-path}/domain/entity/module-users.jdo</mapping-file>]]>
+			</insert>
+	</xmltask>
+-->
+	<!-- COPY PERSISTENCE DESCRIPTOR -->
+	<copy todir="${project.path}/${project.src}/${project.package-path}/domain/entity">
+		<fileset dir=".">
+			<include name="**/*.jdo" />
+		</fileset>
+	</copy>
+
+	<!-- COPY I18N -->
+	<copy todir="${project.path}/${project.src}/${project.package-path}/i18n">
+		<fileset dir="i18n">
+			<include name="*.properties" />
+		</fileset>
+		<filterset>
+			<filter token="project.package-path" value="${project.package-path}" />
+		</filterset>
+	</copy>
+
+	<!-- COPY IMAGES -->
+	<copy todir="${project.path}/WebContent/static/themes/default/image/">
+		<fileset dir="images">
+			<include name="*" />
+		</fileset>
+	</copy>
+
+	<antcall target="register-def-aspect">
+		<param name="module.aspect-name" value="security" />
+		<param name="module.aspect-component" value="UsersSecurityAspect" />
+	</antcall>
+</target>
+</project>
