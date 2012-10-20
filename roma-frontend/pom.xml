@@ -37,7 +37,7 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-	<build>
+	<!--build>
 		<sourceDirectory>src</sourceDirectory>
 		<testSourceDirectory>test</testSourceDirectory>
 		<resources>
@@ -56,5 +56,5 @@
 				</excludes>
 			</testResource>
 		</testResources>
-	</build>
+	</build-->
 </project>
