@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+	<bean id="SessionAspect" class="org.romaframework.aspect.session.html.HttpSessionAspect" singleton="true" />
+
+	<bean id="ViewAspect" depends-on="SessionAspect" class="org.romaframework.aspect.view.html.HtmlViewAspect"
+		singleton="true" >
+			<property name="formRenders">
+				<set>
+					<value>objectembedded</value>
+					<value>menu</value>
+					<value>vmenu</value>
+				</set>
+			</property>
+			<property name="pagesPath" value="/dynamic/view/"/>
+	</bean>
+
+	<bean id="DataBindingAspect" depends-on="ViewAspect" class="org.romaframework.aspect.data.DataBindingAspect"
+		singleton="true">
+		<!-- Enable this entry if you want set additional Paths outside the classpath Key: class SimpleName Value: class full name -->
+	</bean>
+
+	<bean id="RequestParser" class="org.romaframework.aspect.view.html.RequestParserImpl" singleton="true" />
+
+	<bean id="ScreenManager" class="org.romaframework.aspect.view.html.screen.ViewHtmlScreenManager" singleton="true" />
+
+	<bean id="ImageManager" class="org.romaframework.aspect.view.html.image.ImageManager" singleton="true"
+		depends-on="ApplicationConfiguration">
+
+		<!-- Enable this entry if you want set additional Paths outside the classpath -->
+		<property name="additionalPaths">
+			<list>
+				<value></value>
+			</list>
+		</property>
+
+		<property name="config">
+			<ref bean="ApplicationConfiguration" />
+		</property>
+	</bean>
+
+	<!-- The pretty printer is used by the transformers to indent the code -->
+	<bean id="ViewHtmlBinderFactory" class="org.romaframework.aspect.view.html.binder.DefaultHtmlBinderFactory"></bean>
+
+	<!-- List of binders -->
+
+	<bean id="NullBinder" class="org.romaframework.aspect.view.html.binder.NullBinder"></bean>
+
+
+	<bean id="EventHelper" class="org.romaframework.aspect.view.html.actionhandler.EventHelper">
+		<property name="events">
+			<set>
+				<value>click</value>
+				<value>change</value>
+				<value>blur</value>
+				<value>dblclick</value>
+				<value>focus</value>
+				<value>keydown</value>
+				<value>keyup</value>
+				<value>mousedown</value>
+				<value>mousemove</value>
+				<value>mouseout</value>
+				<value>mouseover</value>
+				<value>mouseup</value>
+				<value>resize</value>
+			</set>
+		</property>
+	</bean>
+
+	<bean id="TransformerManager" class="org.romaframework.aspect.view.html.transformer.jsp.JspTransformerManager"
+		singleton="true">
+		<property name="components">
+			<!-- not jsp transformers -->
+			<list></list>
+		</property>
+	</bean>
+
+	<bean id="ViewTemplateManager" class="org.romaframework.aspect.view.html.transformer.jsp.JspTemplateManager"></bean>
+</beans>

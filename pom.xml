@@ -12,10 +12,10 @@
 	<modules>
 		<module>roma-parent</module>
 		<module>roma-core</module>
+		<module>roma-frontend</module>
+		<module>roma-view-janiculum</module>
+		<module>roma-persistence-datanucleus</module>
 	</modules>
-	<properties>
-		<dist.version>${project.version}</dist.version>
-	</properties>
 
 	<developers>
 		<developer>

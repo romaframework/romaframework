@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE taglib PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.1//EN" 
+"http://java.sun.com/j2ee/dtds/web-jsptaglibrary_1_1.dtd">
+<taglib>
+	<tlibversion>1.0</tlibversion>
+	<jspversion>1.1</jspversion>
+	<shortname>roma</shortname>
+	<info>Roma Meta-Framework tag library</info>
+	
+	<tag>
+		<name>class</name>
+		<tagclass>org.romaframework.aspect.view.html.taglib.RomaClassTag</tagclass>
+		<bodycontent>empty</bodycontent>
+		<info>displays the a POJO</info>
+		<attribute>
+			<name>style</name>
+			<required>false</required>
+			<rtexprvalue>false</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>part</name>
+			<required>false</required>
+			<rtexprvalue>false</rtexprvalue>
+		</attribute>		
+	</tag>
+	
+	<tag>
+		<name>field</name>
+		<tagclass>org.romaframework.aspect.view.html.taglib.RomaFieldTag</tagclass>
+		<bodycontent>empty</bodycontent>
+		<info>displays the a POJO field</info>
+		<attribute>
+			<name>style</name>
+			<required>false</required>
+			<rtexprvalue>false</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>name</name>
+			<required>true</required>
+			<rtexprvalue>false</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>part</name>
+			<required>false</required>
+			<rtexprvalue>false</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>js</name>
+			<required>false</required>
+			<rtexprvalue>true|false</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>css</name>
+			<required>false</required>
+			<rtexprvalue>true|false</rtexprvalue>
+		</attribute>
+	</tag>
+
+	<tag>
+		<name>action</name>
+		<tagclass>org.romaframework.aspect.view.html.taglib.RomaActionTag</tagclass>
+		<bodycontent>empty</bodycontent>
+		<info>displays the a POJO method as an action</info>
+		<attribute>
+			<name>style</name>
+			<required>false</required>
+			<rtexprvalue>false</rtexprvalue>
+		</attribute>		
+		<attribute>
+			<name>name</name>
+			<required>true</required>
+			<rtexprvalue>false</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>part</name>
+			<required>false</required>
+			<rtexprvalue>false</rtexprvalue>
+		</attribute>
+	</tag>
+		
+	<tag>
+		<name>formArea</name>
+		<tagclass>org.romaframework.aspect.view.html.taglib.RomaFormAreaTag</tagclass>
+		<bodycontent>empty</bodycontent>
+		<info>displays a form area</info>
+		<attribute>
+			<name>style</name>
+			<required>false</required>
+			<rtexprvalue>false</rtexprvalue>
+		</attribute>		
+		<attribute>
+			<name>name</name>
+			<required>true</required>
+			<rtexprvalue>false</rtexprvalue>
+		</attribute>
+	</tag>
+	
+	<tag>
+		<name>screenArea</name>
+		<tagclass>org.romaframework.aspect.view.html.taglib.RomaScreenAreaTag</tagclass>
+		<bodycontent>empty</bodycontent>
+		<info>displays a screen area</info>
+		<attribute>
+			<name>style</name>
+			<required>false</required>
+			<rtexprvalue>false</rtexprvalue>
+		</attribute>		
+		<attribute>
+			<name>name</name>
+			<required>true</required>
+			<rtexprvalue>false</rtexprvalue>
+		</attribute>
+	</tag>
+	
+		
+	<tag>
+		<name>css</name>
+		<tagclass>org.romaframework.aspect.view.html.taglib.RomaCssTag</tagclass>
+		<bodycontent>empty</bodycontent>
+		<info>imports roma default css</info>	
+	</tag>
+	<tag>
+		<name>inlinecss</name>
+		<tagclass>org.romaframework.aspect.view.html.taglib.RomaInlineCssTag</tagclass>
+		<bodycontent>empty</bodycontent>
+		<info>prints roma default css. This tag has to be put at the end of the body...</info>	
+	</tag>
+		
+	<tag>
+		<name>js</name>
+		<tagclass>org.romaframework.aspect.view.html.taglib.RomaJsTag</tagclass>
+		<bodycontent>empty</bodycontent>
+		<info>imports roma default javascript</info>
+	</tag>
+	<tag>
+		<name>inlinejs</name>
+		<tagclass>org.romaframework.aspect.view.html.taglib.RomaInlineJsTag</tagclass>
+		<bodycontent>empty</bodycontent>
+		<info>prints roma default js. This tag has to be put at the end of the body...</info>
+	</tag>	
+	
+	<tag>
+		<name>addjs</name>
+		<tagclass>org.romaframework.aspect.view.html.taglib.RomaAddJsTag</tagclass>
+		<info>adds a javascript snippet to the js buffer</info>	
+	</tag>
+</taglib>

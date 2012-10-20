@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir="." default="add-module" name="roma-aspect-view-janiculum-wizard">
+
+	<import file="${wizard.path}/base-wizard.xml" />
+
+	<target name="add-ioc">
+		<delete file="${project.path}/${project.ioc-path}/${module.ioc-file-session}" />
+		<copy file="${module.ioc-file-session}" todir="${project.path}/${project.ioc-path}">
+			<filterset>
+				<filter token="project.package" value="${project.package}" />
+				<filter token="project.name" value="${project.name}" />
+			</filterset>
+		</copy>
+	</target>
+
+	<target name="add-module" >
+		<echo>----- ADDING MODULE VIEW HTML ---</echo>
+		<property name="module.ioc-file" value="applicationContext-janiculum.xml" />
+		<antcall target="copy-module-ioc-file" />
+
+		<echo>----- UPDATING VIEW AND SESSION ASPECTS DEFINITIONS ---</echo>
+		<antcall target="register-def-aspect">
+			<param name="module.aspect-name" value="view" />
+			<param name="module.aspect-component" value="ViewAspect" />
+		</antcall>
+
+		<antcall target="register-def-aspect">
+			<param name="module.aspect-name" value="session" />
+			<param name="module.aspect-component" value="SessionAspect" />
+		</antcall>
+
+		<antcall target="register-def-aspect">
+			<param name="module.aspect-name" value="data" />
+			<param name="module.aspect-component" value="DataBindingAspect" />
+		</antcall>
+
+		<echo>Adding 'html view aspect configuration' on project's web.xml </echo>
+		<xmltask source="${project.path}/WebContent/WEB-INF/web.xml" dest="${project.path}/WebContent/WEB-INF/web.xml" preservetype="true">
+			<remove path="/web-app/servlet[@id='servlet-es-primary']" />
+			<!-- OLD ECHO2 NAME -->
+			<remove path="/web-app/servlet[@id='roma-app-servlet']" />
+			<remove path="/web-app/servlet[@id='roma-css-servlet']" />
+			<remove path="/web-app/servlet[@id='roma-js-servlet']" />
+			<remove path="/web-app/servlet[@id='roma-chart-servlet']" />
+			<remove path="/web-app/servlet[@id='roma-image-servlet']" />
+			<remove path="/web-app/servlet-mapping[@id='servlet-mapping-es-primary']" />
+			<!-- OLD ECHO2 NAME -->
+			<remove path="/web-app/servlet-mapping[@id='roma-app-servlet-mapping']" />
+			<remove path="/web-app/servlet-mapping[@id='roma-css-servlet-mapping']" />
+			<remove path="/web-app/servlet-mapping[@id='roma-js-servlet-mapping']" />
+			<remove path="/web-app/servlet-mapping[@id='roma-chart-servlet-mapping']" />
+			<remove path="/web-app/servlet-mapping[@id='roma-image-servlet-mapping']" />
+			<remove path="/web-app/welcome-file-list" />
+			<remove path="/web-app/session-config" />
+
+			<insert path="/web-app/listener[last()]" position="after">
+				<![CDATA[
+	    <servlet id="roma-app-servlet">
+				<servlet-name>HtmlServlet</servlet-name>
+				<servlet-class>
+			org.romaframework.aspect.view.html.HtmlServlet
+		</servlet-class>
+				<load-on-startup>0</load-on-startup>
+			</servlet>
+
+			<servlet id="roma-css-servlet">
+				<servlet-name>CssServlet</servlet-name>
+				<servlet-class>
+			org.romaframework.aspect.view.html.CssServlet
+		</servlet-class>
+				<load-on-startup>0</load-on-startup>
+			</servlet>
+
+			<servlet id="roma-js-servlet">
+				<servlet-name>JsServlet</servlet-name>
+				<servlet-class>
+			org.romaframework.aspect.view.html.JsServlet
+		</servlet-class>
+				<load-on-startup>0</load-on-startup>
+			</servlet>
+
+			<servlet id="roma-chart-servlet">
+				<servlet-name>ChartServlet</servlet-name>
+				<servlet-class>
+			org.romaframework.aspect.view.html.ChartServlet
+		</servlet-class>
+				<load-on-startup>0</load-on-startup>
+			</servlet>
+
+			<servlet id="roma-image-servlet">
+				<servlet-name>ImageServlet</servlet-name>
+				<servlet-class>
+			org.romaframework.aspect.view.html.ImageServlet
+		</servlet-class>
+				<load-on-startup>0</load-on-startup>
+			</servlet>
+
+			<servlet id="ajax-servlet">
+				<servlet-name>AjaxServlet</servlet-name>
+				<servlet-class>
+			org.romaframework.aspect.view.html.AjaxServlet
+		</servlet-class>
+			</servlet>
+			<servlet id="download-servlet">
+				<servlet-name>DownloadServlet</servlet-name>
+				<servlet-class>org.romaframework.aspect.view.html.DownloadStreamServlet</servlet-class>
+			</servlet>
+			<servlet id="upload-servlet">
+				<servlet-name>UploadServlet</servlet-name>
+				<servlet-class>org.romaframework.aspect.view.html.UploadServlet</servlet-class>
+			</servlet>
+						    
+]]></insert>
+
+		<insert path="/web-app/servlet[last()]" position="after">
+			<![CDATA[
+	<servlet-mapping id="roma-app-servlet-mapping">
+			<servlet-name>HtmlServlet</servlet-name>
+			<url-pattern>/app/*</url-pattern>
+		</servlet-mapping>
+
+		<servlet-mapping id="roma-css-servlet-mapping">
+			<servlet-name>CssServlet</servlet-name>
+			<url-pattern>/roma.css</url-pattern>
+		</servlet-mapping>
+
+		<servlet-mapping id="roma-js-servlet-mapping">
+			<servlet-name>JsServlet</servlet-name>
+			<url-pattern>/roma.js</url-pattern>
+		</servlet-mapping>
+
+		<servlet-mapping id="roma-chart-servlet-mapping">
+			<servlet-name>ChartServlet</servlet-name>
+			<url-pattern>/chart.png</url-pattern>
+		</servlet-mapping>
+
+		<servlet-mapping id="roma-image-servlet-mapping">
+			<servlet-name>ImageServlet</servlet-name>
+			<url-pattern>/image.png</url-pattern>
+		</servlet-mapping>
+
+		<servlet-mapping id="ajax-servlet-mapping">
+			<servlet-name>AjaxServlet</servlet-name>
+			<url-pattern>/ajax</url-pattern>
+		</servlet-mapping>
+		<servlet-mapping id="download-servlet-mapping">
+			<servlet-name>DownloadServlet</servlet-name>
+			<url-pattern>/downloadstream/*</url-pattern>
+		</servlet-mapping>
+		<servlet-mapping id="upload-servlet-mapping">
+			<servlet-name>UploadServlet</servlet-name>
+			<url-pattern>/fileUpload</url-pattern>
+		</servlet-mapping>
+	]]>
+			</insert>
+	<insert path="/web-app/servlet-mapping[last()]" position="after">
+		<![CDATA[
+	  	  <session-config>
+		<session-timeout>15</session-timeout>
+	</session-config>
+	<welcome-file-list>
+		<welcome-file>app</welcome-file>
+	</welcome-file-list>
+	  	]]>
+			</insert>
+</xmltask>
+</target>
+</project>

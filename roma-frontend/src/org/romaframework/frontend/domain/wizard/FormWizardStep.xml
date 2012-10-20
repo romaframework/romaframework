@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://www.romaframework.org/xml/roma" xmlns:xsd="http://www.w3.org/2001/XMLSchema-instance"
+	xsd:schemaLocation="http://www.romaframework.org/xml/roma http://www.romaframework.org/schema/v3/roma.xsd">
+	<aspects>
+		<view render="objectembedded" explicitElements="true">
+			<form>
+				<area name="main" type="grid" size="1" align="top center">
+					<area name="information" align="top center" />
+					<area name="fields" type="form" size="1" align="top center" />
+				</area>
+			</form>
+		</view>
+	</aspects>
+	<fields>
+		<field name="information">
+			<aspects>
+				<view render="html" label="" />
+			</aspects>
+		</field>
+		<field name="container">
+			<aspects>
+				<view visible="false" />
+			</aspects>
+		</field>
+	</fields>
+</class>

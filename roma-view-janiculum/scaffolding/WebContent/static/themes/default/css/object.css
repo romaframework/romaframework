@@ -1,0 +1,162 @@
+@CHARSET "ISO-8859-1";
+
+body {
+	color: #000000;
+	font: 90%/180% 'MuseoSans500', Arial, Helvetica, sans-serif;
+	margin: 0;
+	padding: 0;
+	text-align: left;
+	background: url("../image/background.png") repeat scroll 0 0 #FFFFFF;
+}
+a {
+	color: #000000;
+}
+select:disabled {
+	background-color: #f6f6f6;
+	border: 1px solid #eee;
+}
+
+input:disabled,textarea:disabled {
+	background-color: #f6f6f6;
+	border: 1px solid #eee;
+}
+
+.text_content_invalid {
+	color: red;
+}
+
+img {
+	display: block;
+}
+
+.class_Object button.action_advancedSearch>img {
+	background-image: url(../image/more.png);
+	display: inline;
+}
+
+.class_Object button.action_simpleSearch>img {
+	background-image: url(../image/less.png);
+	display: inline;
+}
+
+.class_Object button.action_search>img {
+	background-image: url(../image/search.png);
+	display: inline;
+}
+
+.class_Object button.action_create>img {
+	background-image: url(../image/add.gif);
+	display: inline;
+}
+
+.class_Object button.action_showAll>img {
+	background-image: url(../image/view.png);
+	display: inline;
+}
+
+.class_Object button.action_read button>img {
+	background-image: url(../image/view.png);
+	display: inline;
+}
+
+.class_Object button.action_update>img {
+	background-image: url(../image/edit.png);
+	display: inline;
+}
+
+.class_Object button.action_delete>img {
+	background-image: url(../image/remove.png);
+	display: inline;
+}
+
+.class_Object button.action_report>img {
+	background-image: url(../image/print.gif);
+	display: inline;
+}
+
+.class_Object button.action_exportToCsv>img {
+	background-image: url(../image/CSVCrud.png);
+	display: inline;
+}
+
+.class_Object button.action_selectAll>img {
+	background-image: url(../image/selectall.png);
+	display: inline;
+}
+
+.class_Object button.action_deselectAll>img {
+	background-image: url(../image/deselectall.png);
+	display: inline;
+}
+
+.class_Object button.action_save>img {
+	background-image: url(../image/save.png);
+	display: inline;
+}
+
+.class_Object .action_cancel img.render_button_icon{
+	background-image: url(../image/cancel.png);
+	display: inline;
+}
+
+.class_Object button.action_addRight >img {
+	background-image: url(../image/next.gif);
+	display: inline;
+}
+
+.class_Object button.action_addLeft >img {
+	background-image: url(../image/prev.gif);
+	display: inline;
+}
+
+.class_Object button.action_remove >img {
+	background-image: url(../image/remove.gif);
+	display: inline;
+}
+
+.class_Object button.action_edit >img {
+	background-image: url(../image/edit.gif);
+	display: inline;
+}
+
+.class_Object button.action_next >img {
+	background-image: url(../image/next.png);
+	display: inline;
+}
+
+.class_Object button.action_last >img {
+	background-image: url(../image/last.png);
+	display: inline;
+}
+
+.class_Object button.action_queryAll >img {
+	background-image: url(../image/queryall.png);
+	display: inline;
+}
+
+.class_Object button.action_first > img {
+	background-image: url(../image/first.png);
+	display: inline;
+}
+
+.class_Object button.action_prev > img {
+	background-image: url(../image/prev.png);
+	display: inline;
+}
+
+.class_Object button.action_select >img {
+	background-image: url(../image/yes.gif);
+	display: inline;
+}
+
+.class_Object button.action_login >img {
+    background-image: url(../image/login.png);
+    display: inline;
+}
+
+.class_Object button.class_ChangePassword >img {
+    background-image: url(../image/save.png);
+    display: inline;
+}
+
+

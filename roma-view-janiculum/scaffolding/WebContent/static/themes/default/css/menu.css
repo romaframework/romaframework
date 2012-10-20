@@ -1,0 +1,38 @@
+/* RENDER MENU */
+.render_menu > ul ,.render_vmenu >ul {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+}
+
+.render_menu > ul >li {
+	float:left;
+}
+
+.render_menu a ,.render_vmenu a{
+	text-decoration: none;
+}
+
+.render_vmenu label:HOVER,.render_menu label:HOVER{
+	background-color: #F5F5F5;
+}
+.render_vmenu label ,.render_menu label  {
+	padding: 0.1em 0.6em;
+	margin: -1px 0 0 -1px;
+	cursor: pointer;
+	border: 1px solid #CCCCCC;	
+	display: block;
+	background-color: #ffffff;
+}
+
+.render_vmenu div {
+	position: relative;
+}
+.render_menu div>ul{
+	position: absolute;
+}
+.render_vmenu div>ul{
+	position: absolute;
+	top:0;
+	margin: 1px;
+}

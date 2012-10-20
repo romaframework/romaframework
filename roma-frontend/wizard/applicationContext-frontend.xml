@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+	<bean id="FrontendModule" class="org.romaframework.frontend.FrontendModule" singleton="true" />
+	<bean id="ScreenConfigurationLoader" class="org.romaframework.aspect.view.screen.config.ScreenConfigurationLoader"
+		singleton="true" />
+
+	<bean id="RenderingModeManager" class="org.romaframework.aspect.view.rendering.RenderingModeManager" singleton="true">
+		<property name="components">
+			<list></list>
+		</property>
+	</bean>
+
+	<bean id="LayoutModeManager" class="org.romaframework.aspect.view.layout.LayoutModeManager" singleton="true">
+		<property name="components">
+			<list></list>
+		</property>
+	</bean>
+
+</beans>

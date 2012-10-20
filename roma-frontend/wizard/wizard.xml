@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir="." default="add-module" name="roma-frontend-wizard">
+    
+	<import file="${wizard.path}/base-wizard.xml" />
+    
+    <target name="add-module" >
+        <property name="module.ioc-file" value="applicationContext-frontend.xml"/>
+        <antcall target="copy-module-ioc-file"/>
+    </target>
+    
+</project>
