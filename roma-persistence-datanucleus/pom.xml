@@ -35,10 +35,10 @@
 			<artifactId>datanucleus-rdbms</artifactId>
 		</dependency>
 		
-		<dependency>
+<!-- 		<dependency>
 			<groupId>org.datanucleus</groupId>
 			<artifactId>datanucleus-enhancer</artifactId>
-		</dependency>
+		</dependency> -->
 		
 		<dependency>
 			<groupId>org.datanucleus</groupId>

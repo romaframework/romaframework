@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://www.romaframework.org/xml/roma"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema-instance"
+	xsd:schemaLocation="http://www.romaframework.org/xml/roma http://www.romaframework.org/schema/v3/roma.xsd">
+	<aspects>
+		<view>
+			<form>
+				<area name="main" type="column">
+					<area name="fields" type="column">
+						<area name="containers" type="column" />
+						<area name="portlets" type="row">
+							<area name="availablePortlets"
+								type="column" />
+							<area name="commands" type="column" />
+							<area name="selectedPortlets" type="column" />
+						</area>
+					</area>
+					<area name="actions" type="row" />
+				</area>
+			</form>
+		</view>
+	</aspects>
+	<fields>
+		<field name="entity">
+			<aspects>
+				<core expand="false"/>
+			</aspects>
+		</field>
+	</fields>
+	<actions>
+		<action name="add">
+			<aspects>
+				<view position="form://commands" />
+			</aspects>
+		</action>
+		<action name="addAll">
+			<aspects>
+				<view position="form://commands" />
+			</aspects>
+		</action>
+		<action name="remove">
+			<aspects>
+				<view position="form://commands" />
+			</aspects>
+		</action>
+		<action name="removeAll">
+			<aspects>
+				<view position="form://commands" />
+			</aspects>
+		</action>
+	</actions>
+</class>

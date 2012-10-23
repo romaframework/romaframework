@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class xmlns="http://www.romaframework.org/xml/roma" xmlns:xsd="http://www.w3.org/2001/XMLSchema-instance"
+	xsd:schemaLocation="http://www.romaframework.org/xml/core http://www.romaframework.org/schema/v3/roma.xsd">
+	<aspects>
+		<view explicitElements="true" />
+	</aspects>
+	<fields>
+		<field name="name" />
+		<field name="profile" />
+		<field name="group" />
+		<field name="status" />
+	</fields>
+</class>

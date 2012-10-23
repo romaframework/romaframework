@@ -27,10 +27,10 @@
 		<javax.jsp-api.version>2.1</javax.jsp-api.version>
 		<commons.fileupload.version>1.2.2</commons.fileupload.version>
 		<org.datanucleus.core.version>3.0.9</org.datanucleus.core.version>
-		<org.datanucleus.rdbms.version>3.1.1</org.datanucleus.rdbms.version>
-		<org.datanucleus.connectionpool.version>2.0.3</org.datanucleus.connectionpool.version>
-		<org.datanucleus.api-jdo.version>3.0.8</org.datanucleus.api-jdo.version>
-		<org.datanucleus.enhancer.version>3.0.1</org.datanucleus.enhancer.version>
+		<org.datanucleus.rdbms.version>3.0.8</org.datanucleus.rdbms.version>
+		<org.datanucleus.connectionpool.version>2.0.2</org.datanucleus.connectionpool.version>
+		<org.datanucleus.api-jdo.version>3.0.7</org.datanucleus.api-jdo.version>
+		<!-- <org.datanucleus.enhancer.version>3.0.1</org.datanucleus.enhancer.version> -->
 		<javax.jdo.version>3.0.1</javax.jdo.version>
 	</properties>
 
@@ -143,12 +143,6 @@
 			
 			<dependency>
 				<groupId>org.datanucleus</groupId>
-				<artifactId>datanucleus-enhancer</artifactId>
-				<version>${org.datanucleus.enhancer.version}</version>
-			</dependency>
-			
-			<dependency>
-				<groupId>org.datanucleus</groupId>
 				<artifactId>datanucleus-api-jdo</artifactId>
 				<version>${org.datanucleus.api-jdo.version}</version>
 			</dependency>
@@ -158,6 +152,12 @@
 				<artifactId>datanucleus-connectionpool</artifactId>
 				<version>${org.datanucleus.connectionpool.version}</version>
 			</dependency>
+
+			<!-- <dependency>
+				<groupId>org.datanucleus</groupId>
+				<artifactId>datanucleus-enhancer</artifactId>
+				<version>${org.datanucleus.enhancer.version}</version>
+			</dependency> -->
 
 			<dependency>
 				<groupId>junit</groupId>

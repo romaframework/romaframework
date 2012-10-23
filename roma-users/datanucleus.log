@@ -1,0 +1,40 @@
+02:10:51,204 (main) INFO  [DataNucleus.Enhancer] - DataNucleus Enhancer : Using ClassEnhancer "ASM" for API "JDO"
+02:10:51,536 (main) INFO  [DataNucleus.Enhancer] - DataNucleus Enhancer (version 3.0.1) : Enhancement of classes
+02:10:52,730 (main) INFO  [DataNucleus.Enhancer] - DataNucleus Enhancer completed with success for 0 classes. Timings : input=1188 ms, enhance=0 ms, total=1188 ms. Consult the log for full details
+02:10:52,730 (main) INFO  [DataNucleus.Enhancer] - DataNucleus Enhancer completed and no classes were enhanced. Consult the log for full details
+02:11:54,021 (main) INFO  [DataNucleus.Enhancer] - DataNucleus Enhancer : Using ClassEnhancer "ASM" for API "JDO"
+02:11:54,409 (main) INFO  [DataNucleus.Enhancer] - DataNucleus Enhancer (version 3.0.1) : Enhancement of classes
+02:11:55,871 (main) INFO  [DataNucleus.Enhancer] - DataNucleus Enhancer completed with success for 0 classes. Timings : input=1456 ms, enhance=0 ms, total=1456 ms. Consult the log for full details
+02:11:55,871 (main) INFO  [DataNucleus.Enhancer] - DataNucleus Enhancer completed and no classes were enhanced. Consult the log for full details
+18:45:27,265 (main) INFO  [DataNucleus.Enhancer] - DataNucleus Enhancer : Using ClassEnhancer "ASM" for API "JDO"
+18:45:27,519 (main) INFO  [DataNucleus.Enhancer] - DataNucleus Enhancer (version 3.0.1) : Enhancement of classes
+18:45:28,540 (main) INFO  [DataNucleus.Enhancer] - Writing class file "/home/forat/workspaces/Hackathons/Roma4/roma3Workspace/roma-dist/roma-users/target/classes/org/romaframework/module/users/domain/BaseAccountStatus.class" with enhanced definition
+18:45:28,546 (main) INFO  [DataNucleus.Enhancer] - Writing class file "/home/forat/workspaces/Hackathons/Roma4/roma3Workspace/roma-dist/roma-users/target/classes/org/romaframework/module/users/domain/AbstractAccount.class" with enhanced definition
+18:45:28,571 (main) INFO  [DataNucleus.Enhancer] - Writing class file "/home/forat/workspaces/Hackathons/Roma4/roma3Workspace/roma-dist/roma-users/target/classes/org/romaframework/module/users/domain/BaseAccount.class" with enhanced definition
+18:45:28,580 (main) INFO  [DataNucleus.Enhancer] - Writing class file "/home/forat/workspaces/Hackathons/Roma4/roma3Workspace/roma-dist/roma-users/target/classes/org/romaframework/module/users/domain/BaseProfile.class" with enhanced definition
+18:45:28,587 (main) INFO  [DataNucleus.Enhancer] - Writing class file "/home/forat/workspaces/Hackathons/Roma4/roma3Workspace/roma-dist/roma-users/target/classes/org/romaframework/module/users/domain/BaseGroup.class" with enhanced definition
+18:45:28,595 (main) INFO  [DataNucleus.Enhancer] - Writing class file "/home/forat/workspaces/Hackathons/Roma4/roma3Workspace/roma-dist/roma-users/target/classes/org/romaframework/module/users/domain/BaseFunction.class" with enhanced definition
+18:45:28,604 (main) INFO  [DataNucleus.Enhancer] - Writing class file "/home/forat/workspaces/Hackathons/Roma4/roma3Workspace/roma-dist/roma-users/target/classes/org/romaframework/module/users/domain/Tracking.class" with enhanced definition
+18:45:28,610 (main) INFO  [DataNucleus.Enhancer] - Writing class file "/home/forat/workspaces/Hackathons/Roma4/roma3Workspace/roma-dist/roma-users/target/classes/org/romaframework/module/users/domain/ActivityLogCategory.class" with enhanced definition
+18:45:28,615 (main) INFO  [DataNucleus.Enhancer] - Writing class file "/home/forat/workspaces/Hackathons/Roma4/roma3Workspace/roma-dist/roma-users/target/classes/org/romaframework/module/users/domain/ActivityLog.class" with enhanced definition
+18:45:28,620 (main) INFO  [DataNucleus.Enhancer] - Writing class file "/home/forat/workspaces/Hackathons/Roma4/roma3Workspace/roma-dist/roma-users/target/classes/org/romaframework/module/users/domain/CustomProfiling.class" with enhanced definition
+18:45:28,627 (main) INFO  [DataNucleus.Enhancer] - Writing class file "/home/forat/workspaces/Hackathons/Roma4/roma3Workspace/roma-dist/roma-users/target/classes/org/romaframework/module/users/domain/CustomFunction.class" with enhanced definition
+18:45:28,633 (main) INFO  [DataNucleus.Enhancer] - Writing class file "/home/forat/workspaces/Hackathons/Roma4/roma3Workspace/roma-dist/roma-users/target/classes/org/romaframework/module/users/domain/portal/PortletList.class" with enhanced definition
+18:45:28,638 (main) INFO  [DataNucleus.Enhancer] - Writing class file "/home/forat/workspaces/Hackathons/Roma4/roma3Workspace/roma-dist/roma-users/target/classes/org/romaframework/module/users/domain/portal/PortalPreferences.class" with enhanced definition
+18:45:28,640 (main) INFO  [DataNucleus.Enhancer] - DataNucleus Enhancer completed with success for 13 classes. Timings : input=941 ms, enhance=174 ms, total=1115 ms. Consult the log for full details
+15:00:34,123 (main) INFO  [DataNucleus.Enhancer] - DataNucleus Enhancer : Using ClassEnhancer "ASM" for API "JDO"
+15:00:34,416 (main) INFO  [DataNucleus.Enhancer] - DataNucleus Enhancer (version 3.0.1) : Enhancement of classes
+15:00:35,264 (main) INFO  [DataNucleus.Enhancer] - Class "org.romaframework.module.users.domain.BaseAccountStatus" is already enhanced.
+15:00:35,267 (main) INFO  [DataNucleus.Enhancer] - Class "org.romaframework.module.users.domain.AbstractAccount" is already enhanced.
+15:00:35,268 (main) INFO  [DataNucleus.Enhancer] - Class "org.romaframework.module.users.domain.BaseAccount" is already enhanced.
+15:00:35,270 (main) INFO  [DataNucleus.Enhancer] - Class "org.romaframework.module.users.domain.BaseProfile" is already enhanced.
+15:00:35,271 (main) INFO  [DataNucleus.Enhancer] - Class "org.romaframework.module.users.domain.BaseGroup" is already enhanced.
+15:00:35,272 (main) INFO  [DataNucleus.Enhancer] - Class "org.romaframework.module.users.domain.BaseFunction" is already enhanced.
+15:00:35,274 (main) INFO  [DataNucleus.Enhancer] - Class "org.romaframework.module.users.domain.Tracking" is already enhanced.
+15:00:35,275 (main) INFO  [DataNucleus.Enhancer] - Class "org.romaframework.module.users.domain.ActivityLogCategory" is already enhanced.
+15:00:35,276 (main) INFO  [DataNucleus.Enhancer] - Class "org.romaframework.module.users.domain.ActivityLog" is already enhanced.
+15:00:35,278 (main) INFO  [DataNucleus.Enhancer] - Class "org.romaframework.module.users.domain.CustomProfiling" is already enhanced.
+15:00:35,279 (main) INFO  [DataNucleus.Enhancer] - Class "org.romaframework.module.users.domain.CustomFunction" is already enhanced.
+15:00:35,280 (main) INFO  [DataNucleus.Enhancer] - Class "org.romaframework.module.users.domain.portal.PortletList" is already enhanced.
+15:00:35,282 (main) INFO  [DataNucleus.Enhancer] - Class "org.romaframework.module.users.domain.portal.PortalPreferences" is already enhanced.
+15:00:35,283 (main) INFO  [DataNucleus.Enhancer] - DataNucleus Enhancer completed with success for 13 classes. Timings : input=805 ms, enhance=55 ms, total=860 ms. Consult the log for full details
