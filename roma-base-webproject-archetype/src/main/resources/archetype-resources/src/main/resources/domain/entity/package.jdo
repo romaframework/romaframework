@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE jdo PUBLIC "-//Sun Microsystems, Inc.//DTD Java Data Objects Metadata 2.0//EN" "jdo.dtd">
+<jdo>
+	<package name="${package}.domain.entity">
+
+		<class cacheable="true" detachable="true" name="Blog"
+			requires-extent="true">
+		</class>
+
+		<class cacheable="true" detachable="true" name="Post"
+			requires-extent="true">
+		</class>
+
+	</package>
+</jdo>

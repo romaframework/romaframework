@@ -1,0 +1,130 @@
+#set( $symbol_pound = '#' )
+#set( $symbol_dollar = '$' )
+#set( $symbol_escape = '\' )
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" "http://java.sun.com/dtd/web-app_2_3.dtd">
+<web-app id="WebApp_ID">
+	<display-name>roma-sample</display-name>
+	<filter>
+		<filter-name>RomaWebFilter</filter-name>
+		<filter-class>org.romaframework.web.RomaWebFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>RomaWebFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<listener id="roma-session-catcher">
+		<listener-class>
+			org.romaframework.web.session.HttpSessionCatcher
+		</listener-class>
+	</listener>
+				
+	    <servlet id="roma-app-servlet">
+				<servlet-name>HtmlServlet</servlet-name>
+				<servlet-class>
+			org.romaframework.aspect.view.html.HtmlServlet
+		</servlet-class>
+				<load-on-startup>0</load-on-startup>
+			</servlet>
+
+			<servlet id="roma-css-servlet">
+				<servlet-name>CssServlet</servlet-name>
+				<servlet-class>
+			org.romaframework.aspect.view.html.CssServlet
+		</servlet-class>
+				<load-on-startup>0</load-on-startup>
+			</servlet>
+
+			<servlet id="roma-js-servlet">
+				<servlet-name>JsServlet</servlet-name>
+				<servlet-class>
+			org.romaframework.aspect.view.html.JsServlet
+		</servlet-class>
+				<load-on-startup>0</load-on-startup>
+			</servlet>
+
+			<servlet id="roma-chart-servlet">
+				<servlet-name>ChartServlet</servlet-name>
+				<servlet-class>
+			org.romaframework.aspect.view.html.ChartServlet
+		</servlet-class>
+				<load-on-startup>0</load-on-startup>
+			</servlet>
+
+			<servlet id="roma-image-servlet">
+				<servlet-name>ImageServlet</servlet-name>
+				<servlet-class>
+			org.romaframework.aspect.view.html.ImageServlet
+		</servlet-class>
+				<load-on-startup>0</load-on-startup>
+			</servlet>
+
+			<servlet id="ajax-servlet">
+				<servlet-name>AjaxServlet</servlet-name>
+				<servlet-class>
+			org.romaframework.aspect.view.html.AjaxServlet
+		</servlet-class>
+			</servlet>
+			<servlet id="download-servlet">
+				<servlet-name>DownloadServlet</servlet-name>
+				<servlet-class>org.romaframework.aspect.view.html.DownloadStreamServlet</servlet-class>
+			</servlet>
+			<servlet id="upload-servlet">
+				<servlet-name>UploadServlet</servlet-name>
+				<servlet-class>org.romaframework.aspect.view.html.UploadServlet</servlet-class>
+			</servlet>
+			
+	<servlet-mapping id="roma-app-servlet-mapping">
+			<servlet-name>HtmlServlet</servlet-name>
+			<url-pattern>/app/*</url-pattern>
+		</servlet-mapping>
+
+		<servlet-mapping id="roma-css-servlet-mapping">
+			<servlet-name>CssServlet</servlet-name>
+			<url-pattern>/roma.css</url-pattern>
+		</servlet-mapping>
+
+		<servlet-mapping id="roma-js-servlet-mapping">
+			<servlet-name>JsServlet</servlet-name>
+			<url-pattern>/roma.js</url-pattern>
+		</servlet-mapping>
+
+		<servlet-mapping id="roma-chart-servlet-mapping">
+			<servlet-name>ChartServlet</servlet-name>
+			<url-pattern>/chart.png</url-pattern>
+		</servlet-mapping>
+
+		<servlet-mapping id="roma-image-servlet-mapping">
+			<servlet-name>ImageServlet</servlet-name>
+			<url-pattern>/image.png</url-pattern>
+		</servlet-mapping>
+
+		<servlet-mapping id="ajax-servlet-mapping">
+			<servlet-name>AjaxServlet</servlet-name>
+			<url-pattern>/ajax</url-pattern>
+		</servlet-mapping>
+		<servlet-mapping id="download-servlet-mapping">
+			<servlet-name>DownloadServlet</servlet-name>
+			<url-pattern>/downloadstream/*</url-pattern>
+		</servlet-mapping>
+		<servlet-mapping id="upload-servlet-mapping">
+			<servlet-name>UploadServlet</servlet-name>
+			<url-pattern>/fileUpload</url-pattern>
+		</servlet-mapping>
+		
+	  	  <session-config>
+		<session-timeout>15</session-timeout>
+	</session-config>
+	<welcome-file-list>
+		<welcome-file>app</welcome-file>
+	</welcome-file-list>
+	  	
+			
+	
+			
+						    
+
+
+</web-app>

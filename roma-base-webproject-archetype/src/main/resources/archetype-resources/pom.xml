@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>${groupId}</groupId>
+	<artifactId>${artifactId}</artifactId>
+	<name>Roma Base WebProject</name>
+	<packaging>war</packaging>
+	<version>${version}</version>
+	<properties>
+		<java.version>1.6</java.version>
+		<org.romaframework.version>3.0.0-SNAPSHOT</org.romaframework.version>
+		<hsqldb.version>1.8.0.10</hsqldb.version>
+		
+		<org.datanucleus.core.version>3.0.9</org.datanucleus.core.version>
+		<org.datanucleus.api-jdo.version>3.0.7</org.datanucleus.api-jdo.version>
+		
+		<!-- PLUGINS -->
+		<org.datanucleus.core.enhancerplugin>3.0.2</org.datanucleus.core.enhancerplugin>
+		<org.eclipse.m2e.lifecyclemapping>1.0.0</org.eclipse.m2e.lifecyclemapping>
+		<org.apache.maven.compilerplugin>2.3.2</org.apache.maven.compilerplugin>
+		<org.mortbay.jetty.mavenplugin>6.1.26</org.mortbay.jetty.mavenplugin>
+		
+	</properties>
+	<dependencies>
+			<dependency>
+				<groupId>org.romaframework</groupId>
+				<artifactId>roma-core</artifactId>
+				<version>${org.romaframework.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.romaframework</groupId>
+				<artifactId>roma-frontend</artifactId>
+				<version>${org.romaframework.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.romaframework</groupId>
+				<artifactId>roma-view-janiculum</artifactId>
+				<version>${org.romaframework.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.romaframework</groupId>
+				<artifactId>roma-persistence-datanucleus</artifactId>
+				<version>${org.romaframework.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.romaframework</groupId>
+				<artifactId>roma-users</artifactId>
+				<version>${org.romaframework.version}</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>hsqldb</groupId>
+				<artifactId>hsqldb</artifactId>
+				<version>${hsqldb.version}</version>
+			</dependency>
+	</dependencies>
+    <build>
+        <plugins>
+        	<plugin>
+			    <groupId>org.mortbay.jetty</groupId>
+			    <artifactId>maven-jetty-plugin</artifactId>
+			    <version>${org.mortbay.jetty.mavenplugin}</version>
+			    <configuration>
+                    <contextPath>/roma</contextPath>
+                    <connectors>
+			            <connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
+				            <port>9090</port>
+				            <maxIdleTime>60000</maxIdleTime>
+	            		</connector>
+          			</connectors>                    
+                </configuration>
+			</plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${org.apache.maven.compilerplugin}</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <compilerArgument>-Xlint:all</compilerArgument>
+                    <showWarnings>true</showWarnings>
+                    <showDeprecation>true</showDeprecation>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.datanucleus</groupId>
+                <artifactId>maven-datanucleus-plugin</artifactId>
+                <version>${org.datanucleus.core.enhancerplugin}</version>
+                <configuration>
+                	<api>JDO</api>
+                    <log4jConfiguration>${basedir}/src/main/resources/datanucleus-log4j.properties</log4jConfiguration>
+                    <verbose>true</verbose>
+					<!-- <mappingIncludes>${basedir}/target/classes/com/mypackage/domain/entity/*.class</mappingIncludes> -->
+                    <enhancerName>ASM</enhancerName>
+                    <detachListener>true</detachListener>
+                    <persistenceUnitName>default</persistenceUnitName>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>process-classes</phase>
+                        <goals>
+                            <goal>enhance</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <dependencies>
+					<dependency>
+						<groupId>org.datanucleus</groupId>
+						<artifactId>datanucleus-core</artifactId>
+						<version>${org.datanucleus.core.version}</version>
+					</dependency>
+					<dependency>
+						<groupId>org.datanucleus</groupId>
+						<artifactId>datanucleus-api-jdo</artifactId>
+						<version>${org.datanucleus.api-jdo.version}</version>
+					</dependency>
+			  </dependencies>
+            </plugin>
+        </plugins>
+        <pluginManagement>
+			<plugins>
+				<!--This plugin's configuration is used to store Eclipse m2e settings 
+					only. It has no influence on the Maven build itself. -->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>${org.eclipse.m2e.lifecyclemapping}</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.datanucleus</groupId>
+										<artifactId>maven-datanucleus-plugin</artifactId>
+										<versionRange>[1.0,)</versionRange>
+										<goals>
+											<goal>enhance</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<execute />
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+    </build>
+</project>

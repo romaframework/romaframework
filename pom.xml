@@ -16,6 +16,7 @@
 		<module>roma-view-janiculum</module>
 		<module>roma-persistence-datanucleus</module>
 		<module>roma-users</module>
+		<module>roma-base-webproject-archetype</module>
 	</modules>
 
 	<developers>

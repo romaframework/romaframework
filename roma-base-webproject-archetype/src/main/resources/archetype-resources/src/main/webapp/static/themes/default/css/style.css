@@ -1,0 +1,13 @@
+/* 0 - General Feature & Object STYLES */
+@import url("object.css");
+/* 1 - AREA & SCREEN STYLES */
+@import url("screenarea.css");
+/* 2 - RENDERS */
+@import url("render.css");
+/* 3 - CRUD & COMPOSED */
+@import url("crud.css");
+/* 4 - CUSTOM PAGES */ 
+@import url("custompages.css");
+@import url("menu.css");
+@import url("uitabs.css");
+@import url("table.css");

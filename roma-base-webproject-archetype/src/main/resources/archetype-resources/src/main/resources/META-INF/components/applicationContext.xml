@@ -1,0 +1,46 @@
+#set( $symbol_pound = '#' )
+#set( $symbol_dollar = '$' )
+#set( $symbol_escape = '\' )
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans default-autowire="no" default-dependency-check="none" default-lazy-init="false">
+	<bean autowire="default" class="org.springframework.context.support.ResourceBundleMessageSource" dependency-check="default" id="messageSource" lazy-init="default" singleton="true">
+		<property name="basename" value="messages"/>
+	</bean>
+
+	<bean autowire="default" class="${package}.CustomApplicationConfiguration" dependency-check="default" id="ApplicationConfiguration" lazy-init="default" singleton="true">
+		<property name="applicationName">
+			<value>Roma Base Web Project</value>
+		</property>
+		<property name="applicationPackage">
+			<value>${package}</value>
+		</property>
+		<property name="applicationDevelopment">
+			<value>true</value>
+		</property>
+        <property name="configuration">
+            <map/>
+        </property>
+	</bean>
+
+	<bean autowire="default" class="org.romaframework.core.aspect.AspectManager" dependency-check="default" id="AspectManager" lazy-init="default" singleton="true">
+		<property name="defaults">
+			<map>
+				<entry key="i18n" value-ref="I18NAspect"/>
+				<entry key="logging" value-ref="LoggingAspect"/>
+				<entry key="flow" value-ref="FlowAspect"/>
+				<entry key="authentication" value-ref="AuthenticationAspect"/>
+				<entry key="validation" value-ref="ValidationAspect"/>
+				<entry key="serialization" value-ref="SerializationAspect"/>
+				<entry key="hook" value-ref="HookAspect"/>
+<entry key="view" value-ref="ViewAspect"/>
+<entry key="session" value-ref="SessionAspect"/>
+<entry key="data" value-ref="DataBindingAspect"/>
+<entry key="persistence" value-ref="PersistenceAspect"/>
+<entry key="security" value-ref="UsersSecurityAspect"/>
+			</map>
+		</property>
+	</bean>
+<bean autowire="default" class="org.romaframework.module.users.install.UsersApplicationInstaller" dependency-check="default" depends-on="UsersModule" id="ApplicationInstaller" lazy-init="default" singleton="true"/>
+
+</beans>

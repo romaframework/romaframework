@@ -1,0 +1,45 @@
+@CHARSET "ISO-8859-1";
+
+/* 1 - AREA & SCREEN STYLES */
+/* Area Actions */
+
+.area_actions {
+    margin-bottom: 1px;
+    margin-top: 1px;
+}
+
+table.area_actions > tbody > tr > td > div {
+    margin-right: 10px;
+    margin-bottom: 1px;
+}
+
+/* Area Fields */
+
+.area_fields {
+    margin-bottom: 1px;
+    margin-top: 1px;
+}
+
+/* Screens */
+
+#screen_main {
+    width: 100%;
+    background-color: white;
+    position: relative;
+    margin: 0 auto;
+}
+
+#screen_main_body {
+    position: relative;
+    margin: 0 auto;
+    padding: 0px 22px;
+    background-color: white;
+}
+
+#screen_main_header {
+    padding-top: 10px;
+}
+
+#screen_main_footer {
+    padding-top: 20px;
+}

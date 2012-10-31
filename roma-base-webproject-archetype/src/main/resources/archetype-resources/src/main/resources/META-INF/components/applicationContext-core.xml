@@ -1,0 +1,65 @@
+#set( $symbol_pound = '#' )
+#set( $symbol_dollar = '$' )
+#set( $symbol_escape = '\' )
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans default-autowire="no" default-dependency-check="none" default-lazy-init="false">
+	<bean autowire="default" class="org.romaframework.aspect.flow.impl.POJOFlow" dependency-check="default" id="FlowAspect" lazy-init="default" singleton="true"/>
+
+	<bean autowire="default" class="org.romaframework.aspect.i18n.rb.I18NAspectResourceBundleImpl" dependency-check="default" id="I18NAspect" lazy-init="default" singleton="true">
+		<constructor-arg ref="AutoReloadManager"/>
+		<property name="packages">
+			<list>
+				<!-- ADDITIONAL PATHS TO DISCOVER I18N FILES -->
+			</list>
+		</property>
+	</bean>
+
+	<bean autowire="default" class="org.romaframework.core.resource.AutoReloadManager" dependency-check="default" id="AutoReloadManager" lazy-init="default" singleton="true">
+		<constructor-arg value="1000"/>
+	</bean>
+
+	<bean autowire="default" class="org.romaframework.core.resource.ResourceResolver" dependency-check="default" id="ResourceResolver" lazy-init="default" singleton="true"/>
+
+	<bean autowire="default" class="org.romaframework.core.schema.SchemaClassResolver" dependency-check="default" id="SchemaClassResolver" lazy-init="default" singleton="true">
+		<constructor-arg ref="ResourceResolver"/>
+		<property name="packages">
+			<list>
+				<!-- ADDITIONAL PACKAGES TO USE AS DOMAIN -->
+			</list>
+		</property>
+	</bean>
+
+	<bean autowire="default" class="org.romaframework.core.schema.SchemaManager" dependency-check="default" id="SchemaManager" init-method="config" lazy-init="default" singleton="true">
+		<property name="configuration">
+			<map>
+				<entry key="ignore-actions" value="jdo*"/>
+			</map>
+		</property>
+	</bean>
+
+	<bean autowire="default" class="org.romaframework.core.schema.SchemaConfigurationLoader" dependency-check="default" id="SchemaConfigurationLoader" lazy-init="default" singleton="true"/>
+
+	<bean autowire="default" class="org.romaframework.core.schema.SchemaReloader" dependency-check="default" id="SchemaReloader" lazy-init="default" singleton="true"/>
+
+	
+
+	<bean autowire="default" class="org.romaframework.aspect.logging.LoggingCommonAspect" dependency-check="default" id="LoggingAspect" lazy-init="default" singleton="true"/>
+
+	<bean autowire="default" class="org.romaframework.aspect.logging.loggers.ConsoleLogger" dependency-check="default" id="ConsoleLogger" lazy-init="default" singleton="true">
+		<constructor-arg>
+			<ref bean="LoggingAspect"/>
+		</constructor-arg>
+	</bean>
+
+	<bean autowire="default" class="org.romaframework.aspect.validation.BasicValidationModule" dependency-check="default" id="ValidationAspect" lazy-init="default" singleton="true"/>
+
+	<bean autowire="default" class="org.romaframework.aspect.serialization.DefaultSerializationAspect" dependency-check="default" id="SerializationAspect" lazy-init="default"/>
+	<bean autowire="default" class="org.romaframework.aspect.serialization.impl.SchemaSerializationInspectionStrategy" dependency-check="default" id="SerializationInspectionStrategy" lazy-init="default"/>
+	<bean autowire="default" class="org.romaframework.aspect.serialization.impl.NativeSerializationFormatStrategy" dependency-check="default" id="SerializationFormatStrategy" lazy-init="default"/>
+
+	<bean autowire="default" class="org.romaframework.aspect.hook.HookAspect" dependency-check="default" id="HookAspect" lazy-init="default"/>
+<bean autowire="default" class="org.romaframework.module.users.UsersAuthentication" dependency-check="default" id="AuthenticationAspect" lazy-init="default" singleton="true">
+				<property name="singleSessionPerUser" value="false"/>
+			</bean>
+</beans>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<archetype-descriptor xsi:schemaLocation="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0 http://maven.apache.org/xsd/archetype-descriptor-1.0.0.xsd" name="roma-base-webproject"
+    xmlns="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <fileSets>
+    <fileSet filtered="true" packaged="true" encoding="UTF-8">
+      <directory>src/main/java</directory>
+      <includes>
+        <include>**/*.java</include>
+      </includes>
+    </fileSet>
+    <fileSet filtered="true" encoding="UTF-8">
+      <directory>src/main/webapp</directory>
+      <includes>
+        <include>**/*.jsp</include>
+        <include>**/*.xml</include>
+      </includes>
+    </fileSet>
+    <fileSet filtered="true" packaged="true" encoding="UTF-8">
+      <directory>src/main/resources</directory>
+      <includes>
+        <include>domain/**/*</include>
+        <include>i18n/**/*</include>
+        <include>view/**/*</include>
+        <!-- <include>**/*.properties</include> -->
+      </includes>
+    </fileSet>
+    <fileSet filtered="true" encoding="UTF-8">
+      <directory>src/main/resources</directory>
+      <excludes>
+      	<exclude>domain/**/*</exclude>
+        <exclude>i18n/**/*</exclude>
+        <exclude>view/**/*</exclude>
+      </excludes>
+<!--       <includes>
+        <include>**/*.xml</include>
+        <include>**/*.properties</include>
+      </includes>  -->
+    </fileSet> 
+    <fileSet encoding="UTF-8">
+      <directory>src/main/webapp</directory>
+      <includes>
+        <include>**/*.jpg</include>
+        <include>**/*.png</include>
+        <include>**/*.PNG</include>
+        <include>**/*.js</include>
+        <include>**/*.tld</include>
+        <include>**/*.css</include>
+        <include>**/*.gif</include>
+      </includes>
+    </fileSet>
+<!--     <fileSet encoding="UTF-8">
+      <directory>src/main/resources</directory>
+      <includes>
+        <include>**/*.dtd</include>
+        <include>**/*.jdo</include>
+      </includes>
+    </fileSet> -->
+    <fileSet encoding="UTF-8">
+      <directory>.settings</directory>
+      <includes>
+        <include>**/*.prefs</include>
+      </includes>
+    </fileSet>
+    <fileSet filtered="true" encoding="UTF-8">
+      <directory></directory>
+      <includes>
+        <include>.project</include>
+        <include>.classpath</include>
+      </includes>
+    </fileSet>
+  </fileSets>
+</archetype-descriptor>
