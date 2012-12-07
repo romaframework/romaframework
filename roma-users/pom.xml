@@ -50,6 +50,8 @@
 					<verbose>true</verbose>
 					<enhancerName>ASM</enhancerName>
 					<detachListener>true</detachListener>
+					<!-- without fork=false the build fails in windows -->
+					<fork>false</fork>
 				</configuration>
 				<executions>
 					<execution>
