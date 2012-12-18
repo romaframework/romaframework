@@ -22,11 +22,15 @@ package org.romaframework.aspect.view;
  * @author Luca Garulli (luca.garulli--at--assetdata.it)
  */
 public interface ViewCallback {
+	
 	/**
 	 * It's called by the rendering engine before the object is displayed. Implementing this method allow to makes form
 	 * initialization.
 	 */
 	public void onShow();
 
+	/**
+	 * is called before leaving the current page
+	 */
 	public void onDispose();
 }
