@@ -17,5 +17,11 @@
 package org.romaframework.frontend.domain.message;
 
 public interface MessageResponseListener {
+	
+	/**
+	 * 
+	 * @param iMessage
+	 * @param iResponse
+	 */
 	public void responseMessage(Message iMessage, Object iResponse);
 }

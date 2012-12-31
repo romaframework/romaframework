@@ -88,6 +88,9 @@ public class CRUDInstance<T> extends CRUDEntity<T> implements ViewCallback, CRUD
 		}
 	}
 
+	/**
+	 * Overwrite this method to catch the event before to leave a CRUD instance.
+	 */
 	public void onDispose() {
 	}
 

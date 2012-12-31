@@ -33,14 +33,38 @@ import org.romaframework.core.binding.Bindable;
 @Target({ ElementType.FIELD, ElementType.METHOD })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ViewField {
+	
+	/**
+	 * sets the label to associate with the field
+	 * 
+	 * @return String
+	 */
 	String label() default AnnotationConstants.DEF_VALUE;
 
+	/**
+	 * sets the description that must be seen on mouse hover.
+	 * 
+	 * @return String
+	 */
 	String description() default AnnotationConstants.DEF_VALUE;
 
+	/**
+	 * sets the visibility state of the field.
+	 * 
+	 * @see AnnotationConstants
+	 * 
+	 * @return AnnotationConstants
+	 */
 	AnnotationConstants visible() default AnnotationConstants.UNSETTED;
 
 	AnnotationConstants enabled() default AnnotationConstants.UNSETTED;
 
+	/**
+	 * sets the type of render layout, which must have the field.
+	 * from those available in <b>ViewConstants<b/>
+	 * 
+	 * @return String
+	 */
 	String render() default AnnotationConstants.DEF_VALUE;
 
 	String position() default AnnotationConstants.DEF_VALUE;
@@ -57,6 +81,11 @@ public @interface ViewField {
 
 	String[] depends() default AnnotationConstants.DEF_VALUE;
 
+	/**
+	 * Allows to set a custom class, for the management of the layout.
+	 * That extends {@link Bindable}
+	 * @return Class<? extends Bindable>
+	 */
 	Class<? extends Bindable> displayWith() default Bindable.class;
 
 	/**

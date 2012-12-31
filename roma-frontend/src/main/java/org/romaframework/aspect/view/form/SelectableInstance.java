@@ -21,10 +21,16 @@ import org.romaframework.aspect.view.annotation.ViewField;
 
 public class SelectableInstance implements Selectable {
 
+	/**
+	 * Allows you to choose the elements you want to select
+	 */
 	public void setSelection(Object[] iSelectedObjects) {
 		selection = iSelectedObjects;
 	}
 
+	/**
+	 * Returns the currently selected item
+	 */
 	public Object[] getSelection() {
 		return selection;
 	}

@@ -23,6 +23,7 @@ import java.lang.annotation.Target;
 
 import org.romaframework.aspect.core.annotation.AnnotationConstants;
 
+
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ViewClass {
@@ -31,6 +32,11 @@ public @interface ViewClass {
 
 	String description() default AnnotationConstants.DEF_VALUE;
 
+	/**
+	 * Allows you to set the type of layout that will take the field,
+	 * see <b>ViewConstants</b> the various opportunities
+	 * @return
+	 */
 	String render() default AnnotationConstants.DEF_VALUE;
 
 	String style() default AnnotationConstants.DEF_VALUE;

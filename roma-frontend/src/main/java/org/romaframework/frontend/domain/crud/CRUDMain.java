@@ -67,56 +67,82 @@ import org.romaframework.frontend.domain.reporting.ReportGenerator;
 import org.romaframework.frontend.util.RomaCsvGenerator;
 
 /**
- * Main class to display CRUD entry point. It allows to make queries using the filter on top of the page. Results are displayed on
- * bottom of the page along with management of multi-pages. You can change CRUD behavior and layout in the subclass or by Xml
- * Annotation.
+ * Main class to display CRUD entry point. It allows to make queries using the
+ * filter on top of the page. Results are displayed on bottom of the page along
+ * with management of multi-pages. You can change CRUD behavior and layout in
+ * the subclass or by Xml Annotation.
  * 
  * @author Luca Garulli (luca.garulli--at--assetdata.it)
  * @param <T>
- *          ComposedEntity class used to display the result in the table.
+ *            ComposedEntity class used to display the result in the table.
  */
 @CoreClass(orderFields = "filter paging result", orderActions = "search create read update delete report selectAll deselectAll")
 @LoggingClass(mode = LoggingConstants.MODE_DB)
 @SuppressWarnings("unchecked")
-public abstract class CRUDMain<T> extends SelectableInstance implements PagingListener, MessageResponseListener, Refreshable, ViewCallback {
+public abstract class CRUDMain<T> extends SelectableInstance implements
+		PagingListener, MessageResponseListener, Refreshable, ViewCallback {
 
 	@ReportingField(visible = AnnotationConstants.FALSE)
 	@ViewField(label = "", render = ViewConstants.RENDER_OBJECTEMBEDDED, position = "form://paging")
-	protected CRUDPaging																	paging;
+	protected CRUDPaging paging;
 
-	protected org.romaframework.aspect.persistence.Query	queryRequest;
+	protected org.romaframework.aspect.persistence.Query queryRequest;
 
 	@ViewField(visible = AnnotationConstants.FALSE)
-	protected GenericRepository<T>												repository;
+	protected GenericRepository<T> repository;
 
-	protected SchemaClass																	listClass;
-	protected SchemaClass																	createClass;
-	protected SchemaClass																	readClass;
-	protected SchemaClass																	updateClass;
+	protected SchemaClass listClass;
+	protected SchemaClass createClass;
+	protected SchemaClass readClass;
+	protected SchemaClass updateClass;
 
-	protected static Log																	log										= LogFactory.getLog(CRUDMain.class);
+	protected static Log log = LogFactory.getLog(CRUDMain.class);
 
-	public static final String														SEARCH_MODE_LOADING		= "search";
+	public static final String SEARCH_MODE_LOADING = "search";
 
-	protected long																				lastSelectionTime			= 0;
+	protected long lastSelectionTime = 0;
+	
 	@ViewField(visible = AnnotationConstants.FALSE)
-	protected boolean																			handleDoubleClick			= true;
-	private static final int															DOUBLE_CLICK_TIMEOUT	= 1000;
+	protected boolean handleDoubleClick = true;
+	
+	private static final int DOUBLE_CLICK_TIMEOUT = 1000;
 
-	protected CRUDMain(Class<? extends ComposedEntity<?>> iListClass, Class<? extends ComposedEntity<?>> iCreateClass, Class<? extends ComposedEntity<?>> iReadClass,
+	/**
+	 * 
+	 * @param iListClass
+	 * @param iCreateClass
+	 * @param iReadClass
+	 * @param iEditClass
+	 */
+	protected CRUDMain(Class<? extends ComposedEntity<?>> iListClass,
+			Class<? extends ComposedEntity<?>> iCreateClass,
+			Class<? extends ComposedEntity<?>> iReadClass,
 			Class<? extends ComposedEntity<?>> iEditClass) {
 		this(null, iListClass, iCreateClass, iReadClass, iEditClass);
 	}
 
-	protected CRUDMain(GenericRepository<T> iRepository, Class<? extends ComposedEntity<?>> iListClass, Class<? extends ComposedEntity<?>> iCreateClass,
-			Class<? extends ComposedEntity<?>> iReadClass, Class<? extends ComposedEntity<?>> iEditClass) {
+	/**
+	 * 
+	 * @param iRepository
+	 * @param iListClass
+	 * @param iCreateClass
+	 * @param iReadClass
+	 * @param iEditClass
+	 */
+	protected CRUDMain(GenericRepository<T> iRepository,
+			Class<? extends ComposedEntity<?>> iListClass,
+			Class<? extends ComposedEntity<?>> iCreateClass,
+			Class<? extends ComposedEntity<?>> iReadClass,
+			Class<? extends ComposedEntity<?>> iEditClass) {
 
 		paging = new CRUDPaging(this);
 
 		if (iRepository == null) {
-			repository = Roma.repository(SchemaHelper.getSuperclassGenericType(this.getClass()));
+			repository = Roma.repository(SchemaHelper
+					.getSuperclassGenericType(this.getClass()));
 			if (repository == null) {
-				repository = (GenericRepository<T>) PersistenceAspectRepositorySingleton.getInstance();
+				repository = (GenericRepository<T>) PersistenceAspectRepositorySingleton
+						.getInstance();
 			}
 		} else {
 			repository = iRepository;
@@ -131,7 +157,8 @@ public abstract class CRUDMain<T> extends SelectableInstance implements PagingLi
 	@LoggingAction(enabled = AnnotationConstants.FALSE)
 	public void onShow() {
 		if (Roma.reporting() == null) {
-			Roma.setFeature(this, "report", ViewActionFeatures.VISIBLE, Boolean.FALSE);
+			Roma.setFeature(this, "report", ViewActionFeatures.VISIBLE,
+					Boolean.FALSE);
 		}
 	}
 
@@ -142,17 +169,35 @@ public abstract class CRUDMain<T> extends SelectableInstance implements PagingLi
 	@ViewField(label = "", selectionField = "selectionFromResult", render = ViewConstants.RENDER_TABLE, enabled = AnnotationConstants.FALSE, position = "form://result")
 	public abstract List<? extends Object> getResult();
 
+	/**
+	 * takes care of setting the value returned by the filter.
+	 * Usually a list of objects.
+	 * 
+	 * @see CRUDMain#fillResult(List)
+	 * 
+	 * @param iValue 
+	 */
 	public abstract void setResult(Object iValue);
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public void onDispose() {
-		Controller.getInstance().unregisterListener(ClassLoaderListener.class, this);
+		Controller.getInstance().unregisterListener(ClassLoaderListener.class,
+				this);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@ViewAction(visible = AnnotationConstants.FALSE)
 	public void refresh() {
 		search();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public void loadPage(int iFrom, int iTo) {
 		if (queryRequest == null) {
 			return;
@@ -170,7 +215,8 @@ public abstract class CRUDMain<T> extends SelectableInstance implements PagingLi
 	 */
 	@ViewAction(visible = AnnotationConstants.TRUE)
 	public void report() {
-		ReportGenerator form = new ReportGenerator(this, this.getClass().getSimpleName());
+		ReportGenerator form = new ReportGenerator(this, this.getClass()
+				.getSimpleName());
 		Roma.aspect(FlowAspect.class).forward(form);
 	}
 
@@ -180,15 +226,20 @@ public abstract class CRUDMain<T> extends SelectableInstance implements PagingLi
 	@ViewAction(visible = AnnotationConstants.TRUE)
 	public void exportToCsv() {
 		if (getSelection() != null && getSelection().length > 0) {
-			RomaCsvGenerator.generateCsv(getSelection(), ((ComposedEntity<?>) getFilter()).getEntity().getClass().getSimpleName());
+			RomaCsvGenerator.generateCsv(getSelection(),
+					((ComposedEntity<?>) getFilter()).getEntity().getClass()
+							.getSimpleName());
 		} else {
-			RomaCsvGenerator.generateCsv(getResult(), ((ComposedEntity<?>) getFilter()).getEntity().getClass().getSimpleName());
+			RomaCsvGenerator.generateCsv(getResult(),
+					((ComposedEntity<?>) getFilter()).getEntity().getClass()
+							.getSimpleName());
 		}
 	}
 
 	/**
-	 * By default search uses the "Search By Example" pattern by invoking the searchByExample() method. Overwrite this to use the
-	 * searchByQuery() or any other mode.
+	 * By default search uses the "Search By Example" pattern by invoking the
+	 * searchByExample() method. Overwrite this to use the searchByQuery() or
+	 * any other mode.
 	 */
 	@Persistence(mode = PersistenceConstants.MODE_TX)
 	@ViewAction(submit = AnnotationConstants.TRUE)
@@ -198,7 +249,8 @@ public abstract class CRUDMain<T> extends SelectableInstance implements PagingLi
 
 	@ViewAction(visible = AnnotationConstants.FALSE)
 	public void showAll() {
-		Class<?> entityClass = ((ComposedEntity<?>) getFilter()).getEntity().getClass();
+		Class<?> entityClass = ((ComposedEntity<?>) getFilter()).getEntity()
+				.getClass();
 		QueryByFilter addFilter = createAdditionalFilter(entityClass);
 		queryRequest = addFilter;
 		queryRequest.setStrategy(PersistenceAspect.STRATEGY_DETACHING);
@@ -208,8 +260,9 @@ public abstract class CRUDMain<T> extends SelectableInstance implements PagingLi
 	}
 
 	/**
-	 * Search entities using the "Search By Example" pattern. All filter's properties with value different by null are evaluated in
-	 * the query predicate.
+	 * Search entities using the "Search By Example" pattern. All filter's
+	 * properties with value different by null are evaluated in the query
+	 * predicate.
 	 */
 	@ViewAction(visible = AnnotationConstants.FALSE)
 	public void searchByExample() {
@@ -223,13 +276,16 @@ public abstract class CRUDMain<T> extends SelectableInstance implements PagingLi
 	}
 
 	/**
-	 * Search entities using the "Search By Example" pattern. All filter's properties with value different by null are evaluated in
-	 * the query predicate. iAdditionalFilter allow to specify additional constaints for the autogenerated QBE.
+	 * Search entities using the "Search By Example" pattern. All filter's
+	 * properties with value different by null are evaluated in the query
+	 * predicate. iAdditionalFilter allow to specify additional constaints for
+	 * the autogenerated QBE.
 	 */
 	@ViewAction(visible = AnnotationConstants.FALSE)
 	public void searchByExample(QueryByFilter iAdditionalFilter) {
 		Object filter = ((ComposedEntity<?>) getFilter()).getEntity();
-		QueryByFilter addFilter = createAdditionalFilter(filter.getClass(), iAdditionalFilter);
+		QueryByFilter addFilter = createAdditionalFilter(filter.getClass(),
+				iAdditionalFilter);
 		queryRequest = new QueryByExample(filter.getClass(), filter, addFilter);
 		queryRequest.setStrategy(PersistenceAspect.STRATEGY_DETACHING);
 		queryRequest.setMode(SEARCH_MODE_LOADING);
@@ -238,8 +294,9 @@ public abstract class CRUDMain<T> extends SelectableInstance implements PagingLi
 	}
 
 	/**
-	 * Search entities using the "Search By Example" pattern. This variant uses a QueryFilter instance as filter. This allow a much
-	 * more powerful control over filtering by simple QBE upon.
+	 * Search entities using the "Search By Example" pattern. This variant uses
+	 * a QueryFilter instance as filter. This allow a much more powerful control
+	 * over filtering by simple QBE upon.
 	 */
 	@ViewAction(visible = AnnotationConstants.FALSE)
 	public void searchByFilter(QueryByFilter iQueryFilter) {
@@ -250,10 +307,12 @@ public abstract class CRUDMain<T> extends SelectableInstance implements PagingLi
 	}
 
 	/**
-	 * Search entities by passing a query text. The language of query text must be understood by underline Persistence Aspect.
+	 * Search entities by passing a query text. The language of query text must
+	 * be understood by underline Persistence Aspect.
 	 * 
 	 * @param iText
-	 *          Query text in the language supported by underline Persistence Aspect
+	 *            Query text in the language supported by underline Persistence
+	 *            Aspect
 	 */
 	@ViewAction(visible = AnnotationConstants.FALSE)
 	public void searchByText(String iText) {
@@ -266,8 +325,8 @@ public abstract class CRUDMain<T> extends SelectableInstance implements PagingLi
 	}
 
 	/**
-	 * Search entities using the "Search By Text" pattern. This method uses a QueryByText. This allow a much more powerful control
-	 * over searchByQuery
+	 * Search entities using the "Search By Text" pattern. This method uses a
+	 * QueryByText. This allow a much more powerful control over searchByQuery
 	 */
 	@ViewAction(visible = AnnotationConstants.FALSE)
 	public void searchByText(QueryByText iQueryText) {
@@ -297,23 +356,30 @@ public abstract class CRUDMain<T> extends SelectableInstance implements PagingLi
 	}
 
 	/**
-	 * Delegate the execution to the repository created and fill the result in own list.
+	 * Delegate the execution to the repository created and fill the result in
+	 * own list.
 	 */
 	protected void executeQuery() {
 		List<T> repositoryResult = repository.findByCriteria(queryRequest);
 		fillResult(repositoryResult);
 	}
 
-	/*
-	 * Fill CRUD result with the query result
+	/**
+	 * Fill CRUD result with the query result,
+	 * and refresh the field result
+	 * 
+	 * @param repositoryResult
 	 */
 	protected void fillResult(List<T> repositoryResult) {
 		List<?> tempResult = repositoryResult;
 
 		try {
-			tempResult = EntityHelper.createComposedEntityList(repositoryResult, listClass);
+			tempResult = EntityHelper.createComposedEntityList(
+					repositoryResult, listClass);
 		} catch (Exception e) {
-			log.error("[CRUDMain.fillResult] Error on creating wrapper class for result. Class: " + listClass, e);
+			log.error(
+					"[CRUDMain.fillResult] Error on creating wrapper class for result. Class: "
+							+ listClass, e);
 		}
 
 		setResult(tempResult);
@@ -330,9 +396,11 @@ public abstract class CRUDMain<T> extends SelectableInstance implements PagingLi
 	 * @throws IllegalAccessException
 	 * @throws InvocationTargetException
 	 */
-//	@Persistence(mode = PersistenceConstants.MODE_ATOMIC)
+	// @Persistence(mode = PersistenceConstants.MODE_ATOMIC)
 	@ViewAction(visible = AnnotationConstants.TRUE)
-	public Object create() throws SecurityException, NoSuchMethodException, IllegalArgumentException, InstantiationException, IllegalAccessException, InvocationTargetException {
+	public Object create() throws SecurityException, NoSuchMethodException,
+			IllegalArgumentException, InstantiationException,
+			IllegalAccessException, InvocationTargetException {
 		return createInstance();
 	}
 
@@ -345,8 +413,9 @@ public abstract class CRUDMain<T> extends SelectableInstance implements PagingLi
 	 * @throws InvocationTargetException
 	 */
 	@ViewAction(visible = AnnotationConstants.TRUE)
-//	@Persistence(mode = PersistenceConstants.MODE_ATOMIC)
-	public Object read() throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+	// @Persistence(mode = PersistenceConstants.MODE_ATOMIC)
+	public Object read() throws InstantiationException, IllegalAccessException,
+			IllegalArgumentException, InvocationTargetException {
 		Object selectedObj = getOnlyOneSelectedItem(getSelection());
 
 		if (selectedObj == null) {
@@ -375,8 +444,10 @@ public abstract class CRUDMain<T> extends SelectableInstance implements PagingLi
 	 * @throws InvocationTargetException
 	 */
 	@ViewAction(visible = AnnotationConstants.TRUE)
-//	@Persistence(mode = PersistenceConstants.MODE_ATOMIC)
-	public Object update() throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+	// @Persistence(mode = PersistenceConstants.MODE_ATOMIC)
+	public Object update() throws InstantiationException,
+			IllegalAccessException, IllegalArgumentException,
+			InvocationTargetException {
 		Object selectedObj = getOnlyOneSelectedItem(getSelection());
 
 		if (selectedObj == null) {
@@ -385,11 +456,13 @@ public abstract class CRUDMain<T> extends SelectableInstance implements PagingLi
 
 		Object loadedObject = loadObjectDetails(selectedObj);
 
-		Object updateInstance = CRUDHelper.getCRUDObject(updateClass, loadedObject);
+		Object updateInstance = CRUDHelper.getCRUDObject(updateClass,
+				loadedObject);
 
 		if (updateInstance instanceof CRUDInstance<?>) {
 			((CRUDInstance<T>) updateInstance).setRepository(repository);
-			((CRUDInstance<?>) updateInstance).setMode(CRUDInstance.MODE_UPDATE);
+			((CRUDInstance<?>) updateInstance)
+					.setMode(CRUDInstance.MODE_UPDATE);
 		}
 
 		displayInstanceForm(updateInstance);
@@ -398,7 +471,8 @@ public abstract class CRUDMain<T> extends SelectableInstance implements PagingLi
 	}
 
 	/**
-	 * Display the form. Override this method to obtain finer control of where to display the form.
+	 * Display the form. Override this method to obtain finer control of where
+	 * to display the form.
 	 * 
 	 * @param updateInstance
 	 */
@@ -407,15 +481,24 @@ public abstract class CRUDMain<T> extends SelectableInstance implements PagingLi
 	}
 
 	protected Object loadObjectDetails(Object iObj) {
-		Object obj = repository.load(((ComposedEntity<T>) iObj).getEntity(), PersistenceAspect.FULL_MODE_LOADING, PersistenceAspect.STRATEGY_DETACHING);
+		Object obj = repository.load(((ComposedEntity<T>) iObj).getEntity(),
+				PersistenceAspect.FULL_MODE_LOADING,
+				PersistenceAspect.STRATEGY_DETACHING);
 
 		if (obj == null) {
-			throw new ConfigurationException("Cannot load object. Check the PersistenceAspect configuration and assure the class you're using is detachable");
+			throw new ConfigurationException(
+					"Cannot load object. Check the PersistenceAspect configuration and assure the class you're using is detachable");
 		}
 
 		return obj;
 	}
 
+	/**
+	 * check that you have selected only one element, or launching a pop-up warning
+	 * 
+	 * @param iSelection
+	 * @return Object: the object selected
+	 */
 	protected Object getOnlyOneSelectedItem(Object[] iSelection) {
 		if (iSelection == null || iSelection.length != 1) {
 			MessageOk dialog = new MessageOk("crud", "$Message.Information");
@@ -433,12 +516,12 @@ public abstract class CRUDMain<T> extends SelectableInstance implements PagingLi
 	}
 
 	/**
-	 * Delete the current selection allowing the multi-selection of items. It's the "D" of CRUD pattern.
+	 * Delete the current selection allowing the multi-selection of items. It's
+	 * the "D" of CRUD pattern.
 	 * 
 	 * @throws InstantiationException
 	 * @throws IllegalAccessException
 	 */
-
 	@ViewAction(visible = AnnotationConstants.TRUE)
 	public void delete() throws InstantiationException, IllegalAccessException {
 		Object[] selection = getSelection();
@@ -478,7 +561,8 @@ public abstract class CRUDMain<T> extends SelectableInstance implements PagingLi
 
 				if (selection[i] instanceof ComposedEntity<?>) {
 					// GET THE COMPOSED SELECTION
-					selectedInstance = ((ComposedEntity<?>) selectedInstance).getEntity();
+					selectedInstance = ((ComposedEntity<?>) selectedInstance)
+							.getEntity();
 				}
 
 				selectedInstances.add(selectedInstance);
@@ -492,11 +576,11 @@ public abstract class CRUDMain<T> extends SelectableInstance implements PagingLi
 	}
 
 	/**
-	 * Execute the delete after the confirmation. Override this method if you want to handle the deletion by yourself. Useful in
-	 * non-physical deletion.
+	 * Execute the delete after the confirmation. Override this method if you
+	 * want to handle the deletion by yourself. Useful in non-physical deletion.
 	 * 
 	 * @param selectedInstances
-	 *          List of objects to delete
+	 *            List of objects to delete
 	 */
 	protected void executeDelete(List<Object> selectedInstances) {
 		// DELETE THE PERSISTENT OBJECTS
@@ -511,17 +595,22 @@ public abstract class CRUDMain<T> extends SelectableInstance implements PagingLi
 	public void setSelection(Object[] iSelectedObjects) {
 		if (iSelectedObjects == null || iSelectedObjects.length == 0) {
 			// TEMPORARY PATCH TO GET WORKING CRUDS WITH THE NEW VIEW ASPECT
-			Roma.setFeature(this, "delete", ViewActionFeatures.ENABLED, Boolean.FALSE);
+			Roma.setFeature(this, "delete", ViewActionFeatures.ENABLED,
+					Boolean.FALSE);
 		} else {
-			Roma.setFeature(this, "delete", ViewActionFeatures.ENABLED, iSelectedObjects.length > 0);
+			Roma.setFeature(this, "delete", ViewActionFeatures.ENABLED,
+					iSelectedObjects.length > 0);
 
 			boolean enableUpdate = iSelectedObjects.length == 1;
 
-			if (iSelectedObjects.length == 1 && iSelectedObjects[0] instanceof ComposedEntity<?>)
+			if (iSelectedObjects.length == 1
+					&& iSelectedObjects[0] instanceof ComposedEntity<?>)
 				enableUpdate = ((Secure) iSelectedObjects[0]).canWrite();
 
-			// Roma.setFeature(this, "read", ViewActionFeatures.ENABLED, enableUpdate);
-			// Roma.setFeature(this, "update", ViewActionFeatures.ENABLED, enableUpdate);
+			// Roma.setFeature(this, "read", ViewActionFeatures.ENABLED,
+			// enableUpdate);
+			// Roma.setFeature(this, "update", ViewActionFeatures.ENABLED,
+			// enableUpdate);
 		}
 
 		super.setSelection(iSelectedObjects);
@@ -530,8 +619,13 @@ public abstract class CRUDMain<T> extends SelectableInstance implements PagingLi
 	}
 
 	protected boolean checkDoubleClick(Object[] iSelectedObjects) {
-		if (handleDoubleClick && iSelectedObjects != null && iSelectedObjects.length == 1 && getSelection() != null && getSelection().length == 1
-				&& iSelectedObjects[0].equals(getSelection()[0]) && System.currentTimeMillis() - lastSelectionTime < DOUBLE_CLICK_TIMEOUT) {
+		if (handleDoubleClick
+				&& iSelectedObjects != null
+				&& iSelectedObjects.length == 1
+				&& getSelection() != null
+				&& getSelection().length == 1
+				&& iSelectedObjects[0].equals(getSelection()[0])
+				&& System.currentTimeMillis() - lastSelectionTime < DOUBLE_CLICK_TIMEOUT) {
 
 			// DOUBLE CLICK:
 			onDoubleClick();
@@ -541,13 +635,16 @@ public abstract class CRUDMain<T> extends SelectableInstance implements PagingLi
 	}
 
 	/**
-	 * Overwrite this to change the behavior of double click on a selected element in the result.
+	 * Overwrite this to change the behavior of double click on a selected
+	 * element in the result.
 	 */
 	protected void onDoubleClick() {
 		try {
 			update();
 		} catch (Exception e) {
-			log.error("[CRUDMain.setSelection] Error on double click when calling the update method", e);
+			log.error(
+					"[CRUDMain.setSelection] Error on double click when calling the update method",
+					e);
 		}
 	}
 
@@ -558,11 +655,18 @@ public abstract class CRUDMain<T> extends SelectableInstance implements PagingLi
 		Roma.fieldChanged(this, "result");
 	}
 
+	/**
+	 * deselect all elements of table
+	 */
 	public void deselectAll() {
 		setSelection(null);
 		Roma.fieldChanged(this, "result");
 	}
 
+	/**
+	 * 
+	 * @return int : number of elements 
+	 */
 	@ViewField(visible = AnnotationConstants.FALSE)
 	public int getPageElements() {
 		if (paging == null)
@@ -609,32 +713,62 @@ public abstract class CRUDMain<T> extends SelectableInstance implements PagingLi
 		return Roma.context().persistence();
 	}
 
-	protected Object createInstance(Object... iArgs) throws InstantiationException, IllegalAccessException, InvocationTargetException, IllegalArgumentException, SecurityException,
-			NoSuchMethodException {
-		SchemaClass entityClass = createClass.getField(ComposedEntity.NAME).getType().getSchemaClass();
+	
+	/**
+	 * 
+	 * @param iArgs
+	 * @return Object
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 * @throws InvocationTargetException
+	 * @throws IllegalArgumentException
+	 * @throws SecurityException
+	 * @throws NoSuchMethodException
+	 */
+	protected Object createInstance(Object... iArgs)
+			throws InstantiationException, IllegalAccessException,
+			InvocationTargetException, IllegalArgumentException,
+			SecurityException, NoSuchMethodException {
+		SchemaClass entityClass = createClass.getField(ComposedEntity.NAME)
+				.getType().getSchemaClass();
 		Object entityObject = SchemaHelper.createObject(entityClass, iArgs);
 
-		Object createInstance = CRUDHelper.getCRUDObject(createClass, entityObject);
+		Object createInstance = CRUDHelper.getCRUDObject(createClass,
+				entityObject);
 
 		if (createInstance instanceof CRUDInstance<?>) {
 			((CRUDInstance<T>) createInstance).setRepository(repository);
-			((CRUDInstance<?>) createInstance).setMode(CRUDInstance.MODE_CREATE);
+			((CRUDInstance<?>) createInstance)
+					.setMode(CRUDInstance.MODE_CREATE);
 		}
 
 		displayInstanceForm(createInstance);
 		return createInstance;
 	}
 
+	/**
+	 * 
+	 * @param entityClass
+	 * @return QueryByFilter
+	 */
 	protected QueryByFilter createAdditionalFilter(Class<?> entityClass) {
 		return createAdditionalFilter(entityClass, null);
 	}
 
-	protected QueryByFilter createAdditionalFilter(Class<?> entityClass, QueryByFilter extendedFilter) {
+	/**
+	 * 
+	 * @param entityClass
+	 * @param extendedFilter
+	 * @return QueryByFilter
+	 */
+	protected QueryByFilter createAdditionalFilter(Class<?> entityClass,
+			QueryByFilter extendedFilter) {
 		if (extendedFilter == null) {
 			extendedFilter = new QueryByFilter(entityClass);
 		}
 		if (getFilter() instanceof CRUDFilter<?>) {
-			QueryByFilter additionalFilter = ((CRUDFilter<?>) getFilter()).getAdditionalFilter();
+			QueryByFilter additionalFilter = ((CRUDFilter<?>) getFilter())
+					.getAdditionalFilter();
 			if (additionalFilter != null) {
 				extendedFilter.merge(additionalFilter);
 			}
@@ -643,22 +777,38 @@ public abstract class CRUDMain<T> extends SelectableInstance implements PagingLi
 		return extendedFilter;
 	}
 
+	/**
+	 * 
+	 * @param addFilter
+	 */
 	protected void addDefaultOrder(QueryByFilter addFilter) {
-		SchemaClass entityClass = (SchemaClass) listClass.getField(ComposedEntity.NAME).getType().getSchemaClass();
+		SchemaClass entityClass = (SchemaClass) listClass
+				.getField(ComposedEntity.NAME).getType().getSchemaClass();
 		Iterator<SchemaField> it = entityClass.getFieldIterator();
 		while (it.hasNext()) {
 			SchemaField sf = it.next();
-			if (!SchemaHelper.isMultiValueObject(sf) && Roma.context().persistence().isFieldPersistent(sf))
+			if (!SchemaHelper.isMultiValueObject(sf)
+					&& Roma.context().persistence().isFieldPersistent(sf))
 				addFilter.addOrder(sf.getName());
 		}
 	}
 
+	/**
+	 * 
+	 * @param field
+	 * @param mode
+	 */
 	public void onResultSort(String field, String mode) {
 
-		List<QueryByFilterItem> items = new ArrayList<QueryByFilterItem>(((QueryByExample) queryRequest).getAdditionalFilter().getItems());
+		List<QueryByFilterItem> items = new ArrayList<QueryByFilterItem>(
+				((QueryByExample) queryRequest).getAdditionalFilter()
+						.getItems());
 		((QueryByExample) queryRequest).getAdditionalFilter().clear();
 		((QueryByExample) queryRequest).getAdditionalFilter().setItems(items);
-		((QueryByExample) queryRequest).getAdditionalFilter().addOrder(field, "true".equals(mode) ? QueryByFilter.ORDER_ASC : QueryByFilter.ORDER_DESC);
+		((QueryByExample) queryRequest).getAdditionalFilter().addOrder(
+				field,
+				"true".equals(mode) ? QueryByFilter.ORDER_ASC
+						: QueryByFilter.ORDER_DESC);
 		executePagingQuery();
 	}
 }
