@@ -78,10 +78,11 @@ public class QueryPaging<T extends ComposedEntity<E>, E> implements PagingListen
 
 	protected void search(Query query) {
 		this.query = query;
+		long size = repository.countByCriteria(query);
 		query.setRangeFrom(0, paging.getPageElements());
 		executeQuery();
 		if (paging != null) {
-			paging.setTotalItems(query.getTotalItems());
+			paging.setTotalItems((int) size);
 			paging.setCurrentPage(1);
 			Roma.fieldChanged(this, "paging");
 		}
