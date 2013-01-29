@@ -25,11 +25,17 @@ public class MessageOk extends MessageText {
 		super(iId, iTitle);
 	}
 
-	public MessageOk(String iId, String iTitle, MessageResponseListener iListener) {
+	public MessageOk(String iId, String iTitle,
+			MessageResponseListener iListener) {
 		super(iId, iTitle, iListener);
 	}
 
-	public MessageOk(String iId, String iTitle, MessageResponseListener iListener, String iMessage) {
+	public MessageOk(String iId, String iTitle, String iMessage) {
+		super(iId, iTitle, null, iMessage);
+	}
+
+	public MessageOk(String iId, String iTitle,
+			MessageResponseListener iListener, String iMessage) {
 		super(iId, iTitle, iListener, iMessage);
 	}
 
