@@ -14,6 +14,7 @@
 		<module>roma-core</module>
 		<module>roma-frontend</module>
 		<module>roma-view-janiculum</module>
+		<module>roma-mail</module>
 		<module>roma-persistence-datanucleus</module>
 		<module>roma-users</module>
 		<module>roma-base-webproject-archetype</module>
